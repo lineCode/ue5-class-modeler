@@ -1,0 +1,28 @@
+{
+	"FileVersion": 3,
+	"Version": 2,
+	"VersionName": "2.0",
+	"FriendlyName": "UE5 Modeller",
+	"Description": "Modeller plugin for Unreal Engine 5",
+	"Category": "Other",
+	"CreatedBy": "Skully",
+	"CreatedByURL": "https://github.com/ImSkully",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "UE5 Modeller",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault"
+		},
+		{
+			"Name": "UE5Editor",
+			"Type": "UncookedOnly",
+			"LoadingPhase": "EarliestPossible"
+		}
+	]
+}
