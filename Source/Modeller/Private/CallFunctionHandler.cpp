@@ -122,8 +122,7 @@ void FPsDataHandler_CallFunction::CreateFunctionCallStatement(FKismetFunctionCon
 				const auto PinMatch = RemainingPins[i];
 				if (Property->GetFName() == PinMatch->PinName)
 				{
-					//if (UK2Node_CallFunction::IsStructureWildcardProperty(Function, Property->GetFName()) ||
-					//	FKismetCompilerUtilities::IsTypeCompatibleWithProperty(PinMatch, Property, CompilerContext.MessageLog, CompilerContext.GetSchema(), Context.NewClass))
+					if FKismetCompilerUtilities::IsTypeCompatibleWithProperty(PinMatch, Property, CompilerContext.MessageLog, CompilerContext.GetSchema(), Context.NewClass)
 					{
 						const auto PinToTry = FEdGraphUtilities::GetNetFromPin(PinMatch);
 						if (const auto Term = Context.NetMap.Find(PinToTry))
@@ -137,7 +136,7 @@ void FPsDataHandler_CallFunction::CreateFunctionCallStatement(FKismetFunctionCon
 								RHSTerms.Add(*Term);
 							}
 
-							if (Property->HasAnyPropertyFlags(CPF_OutParm) && !((*Term)->IsTermWritable()))
+							if (Property->HasAnyPropertyFlags(CPF_OutParm) && !((*Term)->IsTypeCompatibleWithProperty(Pin->Term)))
 							{
 								if (Property->HasAnyPropertyFlags(CPF_ReferenceParm))
 								{
@@ -149,6 +148,7 @@ void FPsDataHandler_CallFunction::CreateFunctionCallStatement(FKismetFunctionCon
 								else
 								{
 									CompilerContext.MessageLog.Error(*LOCTEXT("PassReadOnlyOutputParam_Error", "Cannot pass a read-only variable to a output parameter @@").ToString(), PinMatch);
+									bFoundParam = false;
 								}
 							}
 						}
