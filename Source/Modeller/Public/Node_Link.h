@@ -26,9 +26,6 @@ public:
 	void GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const override;
 	// End UK2Node interface.
 
-	/** Get link */
-	const FDataLink* GetLink() const;
-
 	/** Update allocated pin */
 	virtual void UpdatePin(EPsDataVariablePinType PinType, UEdGraphPin* Pin) const override;
 
@@ -37,4 +34,7 @@ public:
 
 	/** Get function to call */
 	virtual UFunction* GetFunction() const override;
+
+	/** Create functional statements */
+	virtual CreateFunctionCallStatement() const override;
 };

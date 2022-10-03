@@ -21,9 +21,10 @@ namespace UnrealBuildTool.Rules
 				{
 					"Core",
 					"CoreUObject",
-					"Engine",
 					"PsData",
+					"Engine",
 					"Json",
+					"Xml",
 				}
 			);
 
@@ -33,20 +34,21 @@ namespace UnrealBuildTool.Rules
 					"AnimGraph",
 					"BlueprintGraph",
 					"UnrealEd",
+					"GraphEditor",
 					"AssetTools",
 					"UnrealEd",
 					"KismetWidgets",
 					"KismetCompiler",
-					"GraphEditor",
 					"Kismet",
 					"PropertyEditor",
 					"EditorStyle",
 					"Sequencer",
-					"DetailCustomizations",
 					"Settings",
 					"RenderCore",
 					"Slate",
 					"SlateCore",
+					"Conda",
+					"DetailCustomizations",
 					"DesktopPlatform",
 					"ToolMenus"
 				}

@@ -22,6 +22,7 @@ public:
 	virtual bool IsNodePure() const override { return true; }
 	virtual FText GetMenuCategory() const override;
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
+	virtual FText GetNodeDescription(ENoteMenu::Text MenuDescription) const override;
 	void GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const override;
 	// End UK2Node interface.
 

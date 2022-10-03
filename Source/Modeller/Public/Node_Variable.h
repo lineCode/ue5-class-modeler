@@ -52,6 +52,7 @@ public:
 	virtual FLinearColor GetNodeTitleColor() const override;
 	virtual FSlateIcon GetIconAndTint(FLinearColor& OutColor) const override;
 	virtual bool IsDeprecated() const override;
+	virtual bool isDisabled() const override;
 	// End UEdGraphNode interface
 
 	// Begin UK2Node interface
