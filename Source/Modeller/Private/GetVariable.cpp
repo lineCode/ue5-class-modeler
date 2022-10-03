@@ -1,9 +1,5 @@
-// Copyright 2015-2022 MY.GAMES. All Rights Reserved.
-
 #include "PsDataNode_GetVariable.h"
-
 #include "PsDataAPI.h"
-
 #include "BlueprintActionDatabaseRegistrar.h"
 #include "BlueprintNodeSpawner.h"
 #include "EdGraph/EdGraph.h"
@@ -53,11 +49,15 @@ void UPsDataNode_GetVariable::GetMenuActions(FBlueprintActionDatabaseRegistrar& 
 			UBlueprintNodeSpawner* NodeSpawner = UBlueprintNodeSpawner::Create(NodeClass);
 			check(NodeSpawner != nullptr);
 
-			NodeSpawner->CustomizeNodeDelegate = UBlueprintNodeSpawner::FCustomizeNodeDelegate::CreateLambda([Field, TargetClass](UEdGraphNode* EvaluatorNode, bool) {
+			NodeSpawner->CustomizeNodeDelegate = UBlueprintNodeSpawner::FCustomizeNodeDelegate::CreateLambda([Field, TargetClass, UField](UEdGraphNode* EvaluatorNode, bool) {
 				UPsDataNode_Variable* Node = CastChecked<UPsDataNode_Variable>(EvaluatorNode);
 				Node->TargetClass = TargetClass;
 				Node->PropertyName = Field->Name;
 				Node->UpdateFunctionReference();
+				Node->AllocateDefaultPins();
+
+				// Update the UField after allocation.
+				Node->UField = UField->Name;
 			});
 
 			NodeSpawner->DefaultMenuSignature.Category = FText::FromString(FString::Printf(TEXT("PsData|%s"), *TargetClass->GetName()));
@@ -85,6 +85,8 @@ void UPsDataNode_GetVariable::UpdatePinByContext(EPsDataVariablePinType PinType,
 	{
 		Pin->PinFriendlyName = FText::FromString(PropertyName);
 	}
+
+	return PinType;
 }
 
 UFunction* UPsDataNode_GetVariable::GetFunction() const
