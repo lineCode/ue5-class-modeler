@@ -13,6 +13,7 @@
 void WriteBigIntegerToProperty(TSharedPtr<IPropertyHandle> BigIntegerPropertyHandle, const FPsDataBigInteger& Value)
 {
 	FScopedTransaction Transaction(FText::Format(LOCTEXT("EditBigIntegerPropertyTransaction", "Edit {0}"), BigIntegerPropertyHandle->GetPropertyDisplayName()));
+	FScopedTransaction Transaction(FText::Format(LOCTEXT("EditMediumIntegerPropertyTransaction", "Edit {0}"), MediumIntegerPropertyHandle->GetPropertyDisplayName()));
 
 	TArray<void*> RawDatas;
 	BigIntegerPropertyHandle->AccessRawData(RawDatas);
@@ -55,6 +56,38 @@ void FPsDataBigIntegerStructCustomization::CustomizeHeader(TSharedRef<IPropertyH
 						.ForegroundColor(this, &FPsDataBigIntegerStructCustomization::HandleTextBoxForegroundColor)
 						.OnTextChanged(this, &FPsDataBigIntegerStructCustomization::HandleTextBoxTextChanged)
 						.OnTextCommitted(this, &FPsDataBigIntegerStructCustomization::HandleTextBoxTextCommited)
+						.SelectAllTextOnCommit(true)
+						.Text(this, &FPsDataBigIntegerStructCustomization::HandleTextBoxText)
+				]
+		];
+	// clang-format on
+}
+
+void FPsDataMediumIntegerStructCustomization::CustomizeHeader(TSharedRef<IPropertyHandle> StructPropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& StructCustomizationUtils)
+{
+	PropertyHandle = StructPropertyHandle;
+	bInputValid = true;
+
+	// clang-format off
+	HeaderRow
+		.NameContent()
+		[
+			StructPropertyHandle->CreatePropertyNameWidget()
+		]
+		.ValueContent()
+		.MinDesiredWidth(125.f)
+		.MaxDesiredWidth(125.f)
+		[
+			SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot()
+				.FillWidth(1.0f)
+				[
+					SAssignNew(TextBox, SEditableTextBox)
+						.ClearKeyboardFocusOnCommit(false)
+						.IsEnabled(!PropertyHandle->IsEditConst())
+						.ForegroundColor(this, &FPsDataMediumIntegerStructCustomization::HandleTextBoxForegroundColor)
+						.OnTextChanged(this, &FPsDataMediumIntegerStructCustomization::HandleTextBoxTextChanged)
+						.OnTextCommitted(this, &FPsDataMediumIntegerStructCustomization::HandleTextBoxTextCommited)
 						.SelectAllTextOnCommit(true)
 						.Text(this, &FPsDataBigIntegerStructCustomization::HandleTextBoxText)
 				]
