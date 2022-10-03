@@ -42,12 +42,12 @@ void FPsDataFixedPointStructCustomization::CustomizeHeader(TSharedRef<IPropertyH
 			StructPropertyHandle->CreatePropertyNameWidget()
 		]
 		.ValueContent()
-		.MinDesiredWidth(125.f)
-		.MaxDesiredWidth(125.f)
+		.MinDesiredWidth(150.f)
+		.MaxDesiredWidth(150.f)
 		[
 			SNew(SHorizontalBox)
 			+ SHorizontalBox::Slot()
-				.FillWidth(1.0f)
+				.FillWidth(1.25f)
 				[
 					SAssignNew(TextBox, SEditableTextBox)
 						.ClearKeyboardFocusOnCommit(false)
